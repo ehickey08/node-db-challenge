@@ -40,7 +40,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const addedProject = await Projects.addProject(req.body);
+        const [addedProject] = await Projects.addProject(req.body);
         addedProject.completed = Boolean(addedProject.completed);
         res.status(201).json(addedProject);
     } catch (err) {

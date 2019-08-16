@@ -25,7 +25,7 @@ exports.up = function(knex) {
         })
         .createTable('resources', tbl => {
             tbl.increments();
-            tbl.string('name', 255).notNullable();
+            tbl.string('name', 255).notNullable().unqiue();
             tbl.string('description', 255);
         })
         .createTable('contexts', tbl => {
