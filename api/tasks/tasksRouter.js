@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
         next({
             err: err,
             stat: 500,
-            message: 'Could not retrieve list of projects.',
+            message: 'Could not retrieve list of tasks.',
         });
     }
 });
@@ -32,7 +32,7 @@ router.get('/:id', async (req, res, next) => {
         next({
             err: err,
             stat: 500,
-            message: 'Could not retrieve the project.',
+            message: 'Could not retrieve the task.',
         });
     }
 });
@@ -46,7 +46,7 @@ router.post('/', async (req, res, next) => {
         next({
             err: err,
             stat: 500,
-            message: 'Could not add the project.',
+            message: 'Could not add the task.',
         });
     }
 });

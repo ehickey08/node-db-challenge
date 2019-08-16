@@ -3,30 +3,28 @@ const db = require('../../data/dbConfig');
 module.exports = {
     getAll,
     getById,
-    addProject,
+    addContext,
 };
 
 function getAll() {
-    return db('projects');
+    return db('contexts');
 }
 
 async function getById(id) {
     return [
-        await db('projects')
+        await db('contexts')
             .where({ id })
             .first(),
-        await db('tasks as t')
-            .where('project_id', id)
-            .select('t.id', 't.description', 't.notes', 't.completed'),
-        await db('project_resources as pr')
-            .where('project_id', id)
-            .join('resources as r', 'pr.resource_id', 'r.id')
-            .select('r.id', 'r.name', 'r.description'),
+        await db('tasks_contexts as tc')
+            .where('context_id', id)
+            .join('tasks as t', 'tc.task_id', 't.id')
+            .select('t.id', 't.description', 't.notes', 't.completed')
+            .where('t.completed', 0),
     ];
 }
 
-function addProject(project) {
-    return db('projects')
-        .insert(project)
+function addContext(task) {
+    return db('contexts')
+        .insert(task)
         .then(([id]) => getById(id));
 }
